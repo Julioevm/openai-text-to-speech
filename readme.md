@@ -51,8 +51,8 @@ Generate speech from text:
 pipenv run python your_script.py "Your text input"
 ```
 
-Generate speech from text file with a custom voice and model:
+Generate speech from text file with a custom voice and output format:
 
 ```bash
-pipenv run python your_script.py --text-file "input.txt" --voice "custom_voice" --model "custom_model"
+pipenv run python main.py --text-file "input.txt" --voice "fable" --format "aac"
 ```
