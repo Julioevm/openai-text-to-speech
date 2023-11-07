@@ -37,6 +37,10 @@ You can use the script to generate speech with the following options:
 
 --model: (Optional) Specify the model for speech generation (default: tts-1-hd). 'tts-1' is cheaper and lower quality.
 
+--output-file: (Optional) Specify the path to save the generated audio file.
+
+**Note:** The input text shouldn't exceed **4096** characters. Split the input text into smaller chunks if necessary.
+
 ### Example Usages:
 
 Generate speech from text:

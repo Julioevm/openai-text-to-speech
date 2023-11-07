@@ -2,13 +2,19 @@ from pathlib import Path
 import argparse
 from openai import OpenAI
 
+MAX_INPUT_LENGTH = 4096  # Maximum allowed input length
+
 def main(input_text, voice="onyx", model="tts-1-hd", output_file="speech.mp3"):
+    if len(input_text) > MAX_INPUT_LENGTH:
+        print("Error: The input text exceeds the maximum allowed character limit (4096).")
+        return
+
     client = OpenAI()
     
     speech_file_path = Path(__file__).parent / output_file
     
-    print("Generating speech. Please wait...")  # Added message to inform the user.
-    
+    print("Generating speech. Please wait...")
+
     response = client.audio.speech.create(
         model=model,
         voice=voice,
@@ -31,6 +37,11 @@ if __name__ == "__main__":
     if args.text_file:
         with open(args.text_file, 'r') as file:
             input_text = file.read()
-        main(input_text, args.voice, args.model, args.output_file)
     else:
         print("Please provide a text file using the --text-file argument.")
+        exit(1)
+
+    if len(input_text) > MAX_INPUT_LENGTH:
+        print("Error: The input text exceeds the maximum allowed character limit (4096).")
+    else:
+        main(input_text, args.voice, args.model, args.output_file)
