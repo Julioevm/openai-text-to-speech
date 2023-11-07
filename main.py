@@ -4,7 +4,7 @@ from openai import OpenAI
 
 MAX_INPUT_LENGTH = 4096  # Maximum allowed input length
 
-def main(input_text, voice="onyx", model="tts-1-hd", output_file="speech.mp3"):
+def main(input_text, voice="onyx", model="tts-1-hd", output_file="speech.mp3", response_format="mp3"):
     if len(input_text) > MAX_INPUT_LENGTH:
         print("Error: The input text exceeds the maximum allowed character limit (4096).")
         return
@@ -18,7 +18,8 @@ def main(input_text, voice="onyx", model="tts-1-hd", output_file="speech.mp3"):
     response = client.audio.speech.create(
         model=model,
         voice=voice,
-        input=input_text
+        input=input_text,
+        response_format=response_format
     )
     
     response.stream_to_file(speech_file_path)
@@ -31,7 +32,8 @@ if __name__ == "__main__":
     parser.add_argument("--text-file", help="Path to a text file with input text")
     parser.add_argument("--voice", default="onyx", help="Voice for speech generation (default: onyx)")
     parser.add_argument("--model", default="tts-1-hd", help="Model for speech generation (default: tts-1-hd)")
-    parser.add_argument("--output-file", default="speech.mp3", help="Output filename (default: speech.mp3")
+    parser.add_argument("--output-file", default="speech.mp3", help="Output filename (default: speech.mp3)")
+    parser.add_argument("--format", default="mp3", help="Response format (default: mp3)")
 
     args = parser.parse_args()
     
@@ -47,4 +49,4 @@ if __name__ == "__main__":
     if len(input_text) > MAX_INPUT_LENGTH:
         print("Error: The input text exceeds the maximum allowed character limit (4096).")
     else:
-        main(input_text, args.voice, args.model, args.output_file)
+        main(input_text, args.voice, args.model, args.output_file, args.format)

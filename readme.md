@@ -39,6 +39,8 @@ You can use the script to generate speech with the following options:
 
 --output-file: (Optional) Specify the path to save the generated audio file.
 
+--format: (Optional) Specify the format of the generated audio file (default: mp3). Available formats are (mp3, opus, flac, and aac).
+
 **Note:** The input text shouldn't exceed **4096** characters. Split the input text into smaller chunks if necessary.
 
 ### Example Usages:
